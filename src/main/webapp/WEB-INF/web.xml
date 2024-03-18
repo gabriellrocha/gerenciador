@@ -1,0 +1,48 @@
+
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+		 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+		 
+  <display-name>task-manager</display-name>
+  
+  <filter>
+    <filter-name>PathInvalidoFilter</filter-name>
+    <filter-class>br.com.faculdade.controllers.filters.PathInvalidoFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>PathInvalidoFilter</filter-name>
+    <url-pattern>/home</url-pattern>
+  </filter-mapping>
+  
+   <filter>
+    <filter-name>AutenticacaoFilter</filter-name>
+    <filter-class>br.com.faculdade.controllers.filters.AutenticacaoFilter</filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>AutenticacaoFilter</filter-name>
+    <url-pattern>/home</url-pattern>
+  </filter-mapping>
+  
+  <servlet>
+  	<servlet-name>RootServlet</servlet-name>
+  	<servlet-class>br.com.faculdade.controllers.RootServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>RootServlet</servlet-name>
+  	<url-pattern>/home</url-pattern>
+  </servlet-mapping>
+  
+  
+  
+  
+    <error-page>
+        <error-code>404</error-code>
+        <location>/WEB-INF/views/erro404.html</location>
+    </error-page>
+ 
+  
+    
+</web-app>

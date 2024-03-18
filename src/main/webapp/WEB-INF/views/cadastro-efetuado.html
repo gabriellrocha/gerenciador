@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro Efetuado com Sucesso</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Cadastro Efetuado com Sucesso!</h1>
+        <p>O seu cadastro foi realizado com sucesso. Agora você pode fazer login.</p>
+        <button onclick="redirectLoginPage()">Ir para a Página de Login</button>
+    </div>
+
+    <script>
+        function redirectLoginPage() {
+            // Redireciona para a página de login
+            window.location.href = "http://localhost:8080/task-manager/home?path=signIn";
+        }
+    </script>
+</body>
+</html>
