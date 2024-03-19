@@ -150,7 +150,7 @@
 
 	<main>
 
-		<form class="add-form" id="addForm" action="home?path=tarefa&actionTask=create" method="post">
+		<form class="add-form" id="addForm" action="home?path=tarefa&actionTask=create" method="post" onsubmit="return validarForm()">
 		
 			<input type="text" name="descricao" placeholder="Nova Tarefa" class="input-task" id="inputTask"></input>
 			
@@ -189,6 +189,21 @@
 			</tbody>
 		</table>
 	</main>
+	
+	<script type="text/javascript">
+	
+		function validarForm() {
+		    var descricao = document.getElementById("inputTask").value;
+		    var data = document.getElementById("inputDate").value;
+	
+		    if (descricao.trim() === "" || data === "") {
+		        alert("Por favor, preencha todos os campos.");
+		        return false; 
+		    }
+		    return true; 
+		}
+	
+	</script>
 	
 </body>
 </html>
