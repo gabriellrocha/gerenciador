@@ -30,11 +30,11 @@
 	}
 	
 	body {
-	
+		background-color: rgb(254, 253, 252);
 	}
 	
 	main {
-		background-color: #fff;
+		background-color: rgb(255, 239, 229);
 		border-radius: 8px;
 		padding: 20px;
 		width: 90%;
@@ -61,7 +61,7 @@
 	}
 	
 	button[type=submit] {
-		background-color: #0099ff;
+		background-color: rgb(227, 68, 50);
 		height: 50px;
 		width: 50px;
 		border: none;
@@ -81,6 +81,7 @@
 	}
 	
 	td, th {
+		color: rgb(227, 68, 50);
 		padding: 10px 15px;
 		border: 1px solid #ddd;
 		text-align: center;
@@ -93,7 +94,7 @@
 	
 	
 	tr {
-		background-color: #f5f5f5;
+		background-color: rgb(255, 255, 255);
 	}
 	
 	select {
@@ -157,9 +158,6 @@
 			
 			<button type="submit">+</button>
 		</form>
-
-		<!-- Ícone ou texto de suporte -->
-		<span class="material-symbols-outlined"> support_agent </span>
 
 		<!-- Tabela para exibir as tarefas -->
 		<table id="task-table">

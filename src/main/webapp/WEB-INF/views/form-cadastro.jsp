@@ -26,11 +26,11 @@
 	        justify-content: center;
 	        align-items: center;
 	        height: 100vh;
-	        background-color: #f2f2f2;
+	        background-color: rgb(254, 253, 252);
 	    }
 	
 	    .container {
-	        background-color: #fff;
+	        background-color: rgb(255, 239, 229);
 	        padding: 20px;
 	        border-radius: 8px;
 	        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -42,7 +42,7 @@
 	    }
 	
 	    h2 {
-	        color: #1877f2;
+	        color: rgb(227, 68, 50);
 	    }
 	
 	    input[type="text"],
@@ -58,13 +58,13 @@
 	    }
 	
 	    button {
-	        background-color: #1877f2;
+	        background-color: rgb(227, 68, 50);
 	        color: white;
 	        cursor: pointer;
 	    }
 	
 	    button:hover {
-	        background-color: #0e5a9c;
+	        background-color: rgb(207, 53, 32, 1);
 	    }
 	
 	    p {
@@ -86,6 +86,10 @@
 	    	font-size: 13px;
 	    }
 	    
+	    .div-error h4 {
+	    	color:  rgb(227, 68, 50);
+	    }
+	    
 	    
 	</style>
 </head>
@@ -95,7 +99,7 @@
        
        <%if (campoDuplicado != null) { %>
 		<div class="div-error">
-        	<h4 style="color: red;">Houve um problema</h4>
+        	<h4>Houve um problema</h4>
         	<p><%=mensagem%></p>
     	</div>  	
 	<%
