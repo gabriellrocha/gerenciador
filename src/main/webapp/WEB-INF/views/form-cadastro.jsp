@@ -13,6 +13,8 @@ if (campoDuplicado != null) {
 }
 %>
 
+
+
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
@@ -37,6 +39,7 @@ body {
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 	text-align: center;
 	position: relative;
+	width: 250px; /* Largura fixa do formulário */
 }
 
 .hidden {
@@ -49,7 +52,7 @@ h2 {
 
 input[type="text"], input[type="password"], input[type="email"], button
 	{
-	width: 100%;
+	width: calc(80% - 5px); /* Largura ajustada para considerar a borda */
 	padding: 10px;
 	margin: 8px 0;
 	border: 1px solid #ccc;
@@ -74,11 +77,7 @@ p {
 
 .div-error {
 	border: 2px solid black;
-	padding: 20px;
-	padding-top: 15px;
-	padding-left: 20px;
-	padding-right: 20px;
-	padding-bottom: 15px;
+	padding: 2px;
 }
 
 .div-error p {
@@ -87,31 +86,35 @@ p {
 }
 
 .error-message {
-            color: red;
-            display: none;
-            margin-top: 10px;
-            font-size: 14px; /* Reduzindo o tamanho da fonte da mensagem de erro */
-        }
+	color: red;
+	display: none;
+	margin-top: 10px;
+	font-size: 14px; /* Reduzindo o tamanho da fonte da mensagem de erro */
+}
 
-        .error-message.visible {
-            display: block;
-        }
+.error-message.visible {
+	display: block;
+}
 
-        /* Mantém o tamanho dos elementos do formulário */
-        form > * {
-            margin-bottom: 10px;
-        }
+/* Mantém o tamanho dos elementos do formulário */
+form>* {
+	margin-bottom: 10px;
+}
 
-        button {
-            margin-top: 10px; /* Adicionando espaço entre o formulário e o botão */
-        }
-        
-        
+button {
+	margin-top: 10px; /* Adicionando espaço entre o formulário e o botão */
+}
+
+.error-message-container {
+	height: 15px; /* Altura reservada para a mensagem de erro */
+	padding-bottom:  5px;
+}
 </style>
 </head>
 <body>
 	<div class="container">
 		<h2>Cadastro</h2>
+
 
 		<%
 		if (campoDuplicado != null) {
@@ -123,14 +126,18 @@ p {
 		<%
 		}
 		%>
-		<form id="registerForm" action="home?path=cadastrar" method="post"
-			onsubmit="return validateForm()">
+		
+		<div class="error-message-container">
+			<div id="errorMessage" class="error-message"><%=mensagem%></div>
+		</div>
+
+		<form id="registerForm" action="home?path=cadastrar" method="post">
 			<input type="text" name="name" placeholder="Nome" required><br>
 			<input type="text" name="surname" placeholder="Sobrenome" required><br>
 			<input type="email" name="email" placeholder="E-mail" required><br>
 			<input type="text" name="username" placeholder="Usuário" required><br>
 			<input type="password" name="password" placeholder="Senha" required><br>
-			<button type="button" onclick="validateForm()">Cadastrar</button>
+			<button type="submit" onclick="validateForm()">Cadastrar</button>
 			<p>
 				Já tem uma conta? <a href="home?path=signIn"
 					style="cursor: pointer; text-decoration: none">Faça login</a>
@@ -140,28 +147,29 @@ p {
 	</div>
 
 	<script>
-	function validateForm() {
-        var inputs = document.querySelectorAll('input[required]');
-        var errorMessage = document.getElementById("errorMessage");
-        var fieldEmpty = false;
+		function validateForm() {
+			var inputs = document.querySelectorAll('input[required]');
+			var errorMessage = document.getElementById("errorMessage");
+			var fieldEmpty = false;
 
-        for (var i = 0; i < inputs.length; i++) {
-            if (inputs[i].value === "") {
-                errorMessage.innerHTML = "Por favor, preencha todos os campos";
-                errorMessage.classList.add("visible");
-                inputs[i].focus();
-                fieldEmpty = true;
-                break;
-            }
-        }
+			for (var i = 0; i < inputs.length; i++) {
+				if (inputs[i].value === "") {
+					errorMessage.innerHTML = "Por favor, preencha todos os campos";
+					errorMessage.classList.add("visible");
+					inputs[i].focus();
+					fieldEmpty = true;
+					break;
+				}
+			}
 
-        if (!fieldEmpty) {
-            errorMessage.innerHTML = "";
-            errorMessage.classList.remove("visible");
-        }
+			if (!fieldEmpty) {
+				errorMessage.innerHTML = "";
+				errorMessage.classList.remove("visible");
+			}
 
-        return !fieldEmpty;
-    }
+			return !fieldEmpty;
+		}
 	</script>
 
 </body>
+</html>

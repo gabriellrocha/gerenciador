@@ -1,5 +1,5 @@
 <%
-	String mensagem = (String) request.getAttribute("errorMensagem");
+String mensagem = (String) request.getAttribute("errorMensagem");
 %>
 
 <!DOCTYPE html>
