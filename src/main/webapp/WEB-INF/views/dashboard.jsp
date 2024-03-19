@@ -271,14 +271,16 @@ url('https://fonts.googleapis.com/css2?family=Anta&display=swap')
 				}
 			});
 		});
+		// função de validação campos
 		
 		 function validateForm() {
 		        var descricao = document.getElementById("inputTask").value.trim();
 		        var data = document.getElementById("inputDate").value.trim();
+		        var validationMessage = document.getElementById("validationMessage");
 
-		        // Verifica se os campos estão vazios
+		        
 		        if (descricao === "" || data === "") {
-		            // Exibe a mensagem de validação
+		           
 		            document.getElementById("validationMessage").style.display = "block";
 		            return false; // Impede o envio do formulário
 		        }
@@ -286,7 +288,9 @@ url('https://fonts.googleapis.com/css2?family=Anta&display=swap')
 		        // Se os campos não estiverem vazios, o formulário será enviado
 		        return true;
 		    }
-		
+		 	function hideValidationMessage() {
+		        document.getElementById("validationMessage").style.display = "none";
+		    }
 		
 
 		
