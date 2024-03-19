@@ -173,6 +173,11 @@ td:nth-child(3), td:nth-child(4) {
 	cursor: pointer;
 	text-align: left;
 }
+
+#validationMessage{
+	text-align: center;
+
+}
 @import
 url('https://fonts.googleapis.com/css2?family=Anta&display=swap')
 </style>
@@ -193,16 +198,23 @@ url('https://fonts.googleapis.com/css2?family=Anta&display=swap')
 	<main>
 
 		<form class="add-form" id="addForm"
-			action="home?path=tarefa&actionTask=create" method="post">
+			action="home?path=tarefa&actionTask=create" method="post"
+			onsubmit="return validateForm()">
 
 			<input type="text" name="descricao" placeholder="Nova Tarefa"
 				class="input-task" id="inputTask"></input> <input type="date"
 				name="data" class="input-date" id="inputDate"
 				min="<%=java.time.LocalDate.now()%>"></input>
 
-			<button type="submit">+</button>
-		</form>
 
+			<button type="submit">+</button>
+
+			
+
+		</form>
+		<div id="validationMessage" style="display: none; color: red;">Por favor, preencha todos os campos.</div>
+		
+		
 		<!-- Ícone ou texto de suporte -->
 		<span class="material-symbols-outlined"> support_agent </span>
 
@@ -238,35 +250,55 @@ url('https://fonts.googleapis.com/css2?family=Anta&display=swap')
 	</main>
 
 	<script>
-	document.addEventListener("DOMContentLoaded", function() {
-        var optionsButton = document.getElementById("optionsButton");
-        var optionsDropdown = document.getElementById("optionsDropdown");
+		// função do botão opções.
+		document.addEventListener("DOMContentLoaded", function() {
+			var optionsButton = document.getElementById("optionsButton");
+			var optionsDropdown = document.getElementById("optionsDropdown");
 
-        optionsButton.addEventListener("click", function(event) {
-            if (optionsDropdown.style.display === "block") {
-                optionsDropdown.style.display = "none";
-            } else {
-                optionsDropdown.style.display = "block";
-            }
-            event.stopPropagation(); // Impede a propagação do evento para o documento
-        });
+			optionsButton.addEventListener("click", function(event) {
+				if (optionsDropdown.style.display === "block") {
+					optionsDropdown.style.display = "none";
+				} else {
+					optionsDropdown.style.display = "block";
+				}
+				event.stopPropagation();
+			});
 
-        document.addEventListener("click", function(event) {
-            if (event.target !== optionsButton && !optionsDropdown.contains(event.target)) {
-                optionsDropdown.style.display = "none";
-            }
-        });
-    });
+			document.addEventListener("click", function(event) {
+				if (event.target !== optionsButton
+						&& !optionsDropdown.contains(event.target)) {
+					optionsDropdown.style.display = "none";
+				}
+			});
+		});
+		
+		 function validateForm() {
+		        var descricao = document.getElementById("inputTask").value.trim();
+		        var data = document.getElementById("inputDate").value.trim();
 
-    function logout() {
-        // Lógica de logout aqui...
-        console.log("Logout executado");
-    }
+		        // Verifica se os campos estão vazios
+		        if (descricao === "" || data === "") {
+		            // Exibe a mensagem de validação
+		            document.getElementById("validationMessage").style.display = "block";
+		            return false; // Impede o envio do formulário
+		        }
 
-    function excluirConta() {
-        // Lógica de exclusão de conta aqui...
-        console.log("Excluir conta executado");
-    }
+		        // Se os campos não estiverem vazios, o formulário será enviado
+		        return true;
+		    }
+		
+		
+
+		
+		function logout() {
+			// Lógica de logout aqui...
+			console.log("Logout executado");
+		}
+
+		function excluirConta() {
+			// Lógica de exclusão de conta aqui...
+			console.log("Excluir conta executado");
+		}
 	</script>
 
 </body>
