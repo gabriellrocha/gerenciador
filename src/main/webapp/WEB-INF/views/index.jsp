@@ -8,6 +8,8 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Página Inicial</title>
+	
+	
 	<style>
 	    body {
 	        margin: 0;
@@ -27,6 +29,7 @@
 	        border-radius: 8px;
 	        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 	        text-align: center;
+	        width: 250px;
 	    }
 	
 	    .hidden {
@@ -66,17 +69,23 @@
 	    
 	    .div-error {
 	    	border: 2px solid black;
-	    	padding: 20px;
-	    	padding-top: 15px;
-	    	padding-left: 20px;
-	    	padding-right: 20px;
-	    	padding-bottom: 15px;
+	    	padding: 10px;
+	    	margin-top: 20px; /* Adicione margem para separar do formulário */
+            
+            color: red; /* Cor da mensagem de erro */
+	    	
 	    }
 	    
 	    .div-error p {
 	    	text-decoration: none;
-	    	font-size: 13px;
-	    }    
+	    	font-size: 12px;
+	    	margin: 0;
+	    	
+	    } 
+	    
+	    .login-form {
+            height: 200px; /* Defina a altura fixa desejada */
+        }   
 	</style>
 </head>
 <body>
