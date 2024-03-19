@@ -81,7 +81,10 @@
 </head>
 <body>
 	
-	<%if (mensagem != null) { %>
+	
+	
+    <div class="container">
+    <%if (mensagem != null) { %>
 		<div class="div-error">
         	<h4 style="color: red;">Houve um problema</h4>
         	<p><%=mensagem%></p>
@@ -89,8 +92,6 @@
 	<%
 		}
 	%>
-	
-    <div class="container">
         <h2>Login</h2>
         <form id="loginForm" action="home?path=login" method="post">
             <input type="text" name="username" placeholder="Usuário" required><br>
