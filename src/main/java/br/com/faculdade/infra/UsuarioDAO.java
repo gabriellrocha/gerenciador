@@ -10,6 +10,7 @@ import br.com.faculdade.exceptions.ValorDuplicadoException;
 import br.com.faculdade.models.AuthenticationResult;
 import br.com.faculdade.models.DadosNovoUsuario;
 import br.com.faculdade.models.Usuario;
+import br.com.faculdade.models.dto.UsuarioDTO;
 
 public class UsuarioDAO {
 	
@@ -78,17 +79,17 @@ public class UsuarioDAO {
 				
 				if(password.equals(storedPassword)) {
 					// Credênciais corretas. Obtém ID do usuário.
-					return new AuthenticationResult(1, result.getInt("id"), null);	
+					return new AuthenticationResult(1, new UsuarioDTO(result.getInt("id"), result.getString("nome")));	
 				}
 				
 				// Credênciais incorretas
 				String error = "Sua senha está incorreta";
-				return new AuthenticationResult(2, -1, error);
+				return new AuthenticationResult(2, error);
 			}
 						
 			// Usuario não existe
 			String error = "Não encontramos uma conta associada a este usuário";
-			return new AuthenticationResult(3, -1, error);
+			return new AuthenticationResult(3, error);
 			
 		} catch(SQLException e) {
 			throw new RuntimeException(e);

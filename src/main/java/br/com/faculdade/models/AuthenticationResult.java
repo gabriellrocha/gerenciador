@@ -1,34 +1,33 @@
 package br.com.faculdade.models;
 
+import br.com.faculdade.models.dto.UsuarioDTO;
+
 public class AuthenticationResult {
 	
 	/* encapsula os dados de uma autenticação
 	 * 
 	 * status 1, 2, ou 3;
-	 * userId id do usuario autenticado
+	 * 
 	 * errorMensagem, informa algum comportamento inesperado ao tentar fazer uma autenticação
 	 * */
 	
     private int status;
-    private int userId;
     private String errorMensagem;
+    
+    private UsuarioDTO usuarioDTO;
 
-    public AuthenticationResult(int status, int userId) {
+    public AuthenticationResult(int status, UsuarioDTO usuarioDTO) {
         this.status = status;
-        this.userId = userId;      
+        this.usuarioDTO = usuarioDTO;      
     }
     
-    public AuthenticationResult(int status, int userId, String errorMensagem) {
-    	this(status, userId);
+    public AuthenticationResult(int status, String errorMensagem) {
+    	this.status = status;
     	this.errorMensagem = errorMensagem;	
     }
 
     public int getStatus() {
         return status;
-    }
-
-    public int getUserId() {
-        return userId;
     }
     
     public String getErrorMensagem() {
@@ -37,5 +36,9 @@ public class AuthenticationResult {
     
     public void setErrorMensagem(String mensagem) {
     	this.errorMensagem = mensagem;
+    }
+    
+    public UsuarioDTO getUsuarioDTO() {
+    	return this.usuarioDTO;
     }
 }

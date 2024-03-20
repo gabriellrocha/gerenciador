@@ -39,7 +39,8 @@ public class Login implements Endpoint {
 					// Redirecionamento Client Side
 					
 					HttpSession session = request.getSession();
-					session.setAttribute("userId", authetication.getUserId());
+					session.setAttribute("userId", authetication.getUsuarioDTO().getId());
+					session.setAttribute("nome", authetication.getUsuarioDTO().getName());
 					session.setMaxInactiveInterval(1800);
 					
 					endereco = "redirect:home?path=dashboard";

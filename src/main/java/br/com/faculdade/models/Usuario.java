@@ -18,16 +18,6 @@ public class Usuario {
 		
 	}
 	
-	// talvez, passar senha e email como um objeto credenciais, que encapsula essas informacoes
-	public Usuario(String nome, String sobrenome, String username, String email, String senha) {
-		this.nome = nome;
-		this.sobrenome = sobrenome;
-		this.username = username;
-		this.email = email;
-		this.senha = senha;
-	
-	}
-	
 	public Usuario(DadosNovoUsuario dados) {
 		this.nome = dados.getNome();
 		this.sobrenome = dados.getSobrenome();

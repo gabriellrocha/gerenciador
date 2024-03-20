@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import= "java.util.ArrayList, br.com.faculdade.models.Tarefa, java.time.format.DateTimeFormatter"%>	
 <%
 	ArrayList<Tarefa> tarefas = (ArrayList<Tarefa>) request.getAttribute("listaTarefas");
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	String nome = (String) request.getSession().getAttribute("nome");
 %>
 
 <!DOCTYPE html>
@@ -36,9 +36,10 @@
 	main {
 		background-color: rgb(255, 239, 229);
 		border-radius: 8px;
+		margin: 80px auto auto auto; 
 		padding: 20px;
 		width: 90%;
-		margin: 40px auto;
+		
 		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 	}
 	
@@ -140,13 +141,20 @@
 		padding:5px;
 	}
 	
+	
 	@import
 	url('https://fonts.googleapis.com/css2?family=Anta&display=swap')
+	
+	
 	</style>
 	
 	<title>Dashboard</title>
 </head>
 <body>
+	
+	<header class="header">
+		<p>Usuário: <%=nome %></p>
+	</header>
 
 	<main>
 
