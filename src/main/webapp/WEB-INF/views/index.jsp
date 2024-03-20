@@ -87,6 +87,10 @@
 		.div-error h4 {
 			color: rgb(227, 68, 50);
 		}
+		
+		.div-error p {
+			color: #111;
+		}
 		  
 	</style>
 </head>
@@ -101,6 +105,7 @@
         	<p><%=mensagem%></p>
     	</div>	
 		<% } %>
+		
 		<div class="error-message-container">
 			<div id="errorMessage" class="error-message"><%=mensagem%></div>
 		</div>

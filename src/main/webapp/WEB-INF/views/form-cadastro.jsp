@@ -85,7 +85,7 @@
 		color: red;
 		display: none;
 		margin-top: 10px;
-		font-size: 14px; /* Reduzindo o tamanho da fonte da mensagem de erro */
+		font-size: 14px; 
 	}
 	
 	.error-message-container {
@@ -95,6 +95,11 @@
 	
 	.div-error h4 {
 		color: rgb(227, 68, 50);
+	}
+	
+	.div-error p {
+		color: #111;
+		
 	}
 	
 	</style>
