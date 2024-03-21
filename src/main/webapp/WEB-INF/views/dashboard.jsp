@@ -160,7 +160,7 @@
 
 		<form class="add-form" id="addForm" action="home?path=tarefa&actionTask=create" method="post" onsubmit="return validarForm()">
 		
-			<input type="text" name="descricao" placeholder="Nova Tarefa" class="input-task" id="inputTask"></input>
+			<input type="text" maxlength="50" name="descricao" placeholder="Nova Tarefa" class="input-task" id="inputTask"></input>
 			
 			<input type="date" name="data" class="input-date" id="inputDate" min="<%=java.time.LocalDate.now() %>"></input>
 			
