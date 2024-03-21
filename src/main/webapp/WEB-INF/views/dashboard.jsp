@@ -22,6 +22,7 @@
 	url('https://fonts.googleapis.com/css2?family=Anta&family=Homemade+Apple&family=Rampart+One&display=swap')
 	 @charset "ISO-8859-1";
 	
+	
 	* {
 		margin: 0;
 		padding: 0;
@@ -141,10 +142,61 @@
 		padding:5px;
 	}
 	
+	.options-button {
+	position: fixed;
+	top: 20px;
+	right: 30px;
+	background-color: rgb(255, 239, 229);
+	color: rgb(227, 68, 50);
+	padding: 10px 20px;
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
+	width: 100px;
+	padding: 5px;
+	display: inline-flex;
+	}
+
+	.options-button:hover {
+		background-color: rgb(227, 68, 50);
+		color: rgb(255, 239, 229);
+	}
 	
-	@import
-	url('https://fonts.googleapis.com/css2?family=Anta&display=swap')
+	.options-dropdown {
+		position: fixed;
+		top: 50px;
+		right: 20px;
+		display: none;
+		background-color:  rgb(255, 239, 229);
+		border: 1px solid #ddd;
+		border-radius: 5px;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	}
 	
+	.options-dropdown button {
+		display: block;
+		width: 100%;
+		padding: 10px 20px;
+		border: none;
+		background-color: transparent;
+		cursor: pointer;
+		text-align: left;
+		height: 50px;
+	}
+	
+	.options-dropdown button:hover {
+		background-color: rgb(227, 68, 50);
+		color: rgb(255, 239, 229);
+	}
+	
+	.imagemDoBotao {
+		text-align: left;
+	}
+	
+	.user-info {
+		margin: 5px;
+		padding-left: 6px;
+	}
 	
 	</style>
 	
@@ -152,17 +204,34 @@
 </head>
 <body>
 	
-	<header class="header">
-		<p>Usuário: <%=nome %></p>
-	</header>
+	<button class="options-button" id="optionsButton"
+		title="Clique para ver as opções">
 
+		<div class="imagemDoBotao">
+			<span class="material-symbols-outlined"> account_circle </span>
+		</div>
+		<p class="user-info"><%=nome%></p>
+	</button>
+
+	<div class="options-dropdown" id="optionsDropdown">
+
+		<button onclick="logout()">
+			<span class="material-symbols-outlined"> logout </span>
+		</button>
+		
+		<button onclick="excluirConta()">
+			Excluir Conta
+		</button>
+		
+	</div>
+	
 	<main>
 
 		<form class="add-form" id="addForm" action="home?path=tarefa&actionTask=create" method="post" onsubmit="return validarForm()">
 		
 			<input type="text" maxlength="50" name="descricao" placeholder="Nova Tarefa" class="input-task" id="inputTask"></input>
 			
-			<input type="date" name="data" class="input-date" id="inputDate" min="<%=java.time.LocalDate.now() %>"></input>
+			<input type="date" id="inputDate" min="<%=java.time.LocalDate.now() %>"></input>
 			
 			<button type="submit">+</button>
 		</form>
@@ -210,6 +279,27 @@
 		    }
 		    return true; 
 		}
+		
+		document.addEventListener("DOMContentLoaded", function() {
+			var optionsButton = document.getElementById("optionsButton");
+			var optionsDropdown = document.getElementById("optionsDropdown");
+
+			optionsButton.addEventListener("click", function() {
+				optionsDropdown.style.display = "block";
+			});
+
+			optionsDropdown.addEventListener("mouseover", function() {
+				optionsDropdown.style.display = "block";
+			});
+
+			optionsButton.addEventListener("mouseouver", function() {
+				optionsDropdown.style.display = "none";
+			});
+
+			optionsDropdown.addEventListener("mouseout", function() {
+				optionsDropdown.style.display = "none";
+			});
+		});
 	
 	</script>
 	

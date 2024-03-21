@@ -5,6 +5,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class FabricaConexao {
+	
+	/**
+	 * Classe dedicada à criação de conexões
+	 */
 
 	private static final String URL = "jdbc:mysql://localhost:3306/sistemadb";
 	private static final String USER = "gabriel";
