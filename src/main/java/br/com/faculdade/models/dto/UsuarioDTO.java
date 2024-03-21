@@ -7,7 +7,7 @@ public class UsuarioDTO {
 	
 	public UsuarioDTO(Integer id, String name) {
 		this.id = id;
-		this.name = name;
+		firstLetterUpper(name);
 	}
 
 	public Integer getId() {
@@ -18,4 +18,7 @@ public class UsuarioDTO {
 		return name;
 	}
 	
+	private void firstLetterUpper(String name) {
+		this.name = name.substring(0, 1).toUpperCase() + name.substring(1);
+	}
 }
