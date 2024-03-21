@@ -28,7 +28,6 @@ public class Tarefa implements Endpoint{
 			Integer idUsuario = (Integer) request.getSession().getAttribute("userId");
 			String descricao = request.getParameter("descricao");
 			String data = request.getParameter("data");
-			
 			service.novaTarefa(idUsuario, descricao, data);			
 		}
 		

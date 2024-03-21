@@ -152,8 +152,7 @@
 	border: none;
 	border-radius: 10px;
 	cursor: pointer;
-	width: 100px;
-	padding: 5px;
+	width: 120px;
 	display: inline-flex;
 	}
 
@@ -214,15 +213,13 @@
 	</button>
 
 	<div class="options-dropdown" id="optionsDropdown">
-
-		<button onclick="logout()">
-			<span class="material-symbols-outlined"> logout </span>
-		</button>
 		
-		<button onclick="excluirConta()">
-			Excluir Conta
-		</button>
-		
+		<a href="home?path=logout">
+			<button >
+				<span class="material-symbols-outlined"> logout </span>
+			</button>
+		</a>
+			
 	</div>
 	
 	<main>
@@ -231,7 +228,7 @@
 		
 			<input type="text" maxlength="50" name="descricao" placeholder="Nova Tarefa" class="input-task" id="inputTask"></input>
 			
-			<input type="date" id="inputDate" min="<%=java.time.LocalDate.now() %>"></input>
+			<input type="date" name="data" id="inputDate" min="<%=java.time.LocalDate.now() %>"></input>
 			
 			<button type="submit">+</button>
 		</form>

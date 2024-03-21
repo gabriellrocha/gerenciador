@@ -25,7 +25,7 @@ public class PathInvalidoFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest) servletRequest;
 		HttpServletResponse response = (HttpServletResponse) servletResponse;
 		
-		String[] arrayPaths = {"cadastrar", "dashboard", "erro", "login", "signIn", "signUp", "tarefa"};
+		String[] arrayPaths = {"cadastrar", "dashboard", "erro", "login", "signIn", "signUp", "tarefa", "logout"};
 		String path = request.getParameter("path");
 		
 		Set<String> paths = new HashSet<>(Set.of(arrayPaths));
