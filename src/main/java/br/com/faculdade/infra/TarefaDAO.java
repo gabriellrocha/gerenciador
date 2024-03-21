@@ -42,7 +42,7 @@ public class TarefaDAO {
 		ArrayList<Tarefa> tarefas = new ArrayList<>();
 		
 		String sql =
-				"SELECT tarefas.id, tarefas.descricao, tarefas.data " +
+				"SELECT tarefas.id, tarefas.descricao, tarefas.data, tarefas.status " +
 				"FROM tarefas " +
 				"INNER JOIN usuarios ON tarefas.usuario_id = usuarios.id " +
 				"WHERE usuarios.id = ?";

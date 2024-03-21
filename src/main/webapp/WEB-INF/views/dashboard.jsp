@@ -252,7 +252,7 @@
 					<tr>
 						<td><%= tarefa.getDescricao() %></td>
 						<td><%= tarefa.getData().toLocalDate().format(formatter) %></td>
-						<td></td>
+						<td><%= tarefa.getStatus().toString() %></td>
 						<td></td>		
 					</tr>
 					
