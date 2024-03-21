@@ -5,6 +5,7 @@
 <%
 ArrayList<Tarefa> tarefas = (ArrayList<Tarefa>) request.getAttribute("listaTarefas");
 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+String nome = (String) request.getSession().getAttribute("nome");
 %>
 
 <!DOCTYPE html>
@@ -31,15 +32,15 @@ url('https://fonts.googleapis.com/css2?family=Anta&family=Homemade+Apple&family=
 }
 
 body {
-	
+	background-color: rgb(254, 253, 252);
 }
 
 main {
-	background-color: #fff;
+	background-color: rgb(255, 239, 229);
 	border-radius: 8px;
+	margin: 80px auto auto auto;
 	padding: 20px;
 	width: 90%;
-	margin: 40px auto;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -62,7 +63,7 @@ input {
 }
 
 button[type=submit] {
-	background-color: #0099ff;
+	background-color: rgb(227, 68, 50);
 	height: 50px;
 	width: 50px;
 	border: none;
@@ -82,6 +83,7 @@ table {
 }
 
 td, th {
+	color: rgb(227, 68, 50);
 	padding: 10px 15px;
 	border: 1px solid #ddd;
 	text-align: center;
@@ -93,7 +95,7 @@ td {
 }
 
 tr {
-	background-color: #f5f5f5;
+	background-color: rgb(255, 255, 255);
 }
 
 select {
@@ -143,14 +145,20 @@ td:nth-child(3), td:nth-child(4) {
 	position: fixed;
 	top: 20px;
 	right: 30px;
-	background-color: #0099ff;
-	color: #fff;
+	background-color: rgb(255, 239, 229);
+	color: rgb(227, 68, 50);
 	padding: 10px 20px;
 	border: none;
-	border-radius: 5px;
+	border-radius: 10px;
 	cursor: pointer;
-	width: 65px;
+	width: 100px;
 	padding: 5px;
+	display: inline-flex;
+}
+
+.options-button:hover {
+	background-color: rgb(227, 68, 50);
+	color: rgb(255, 239, 229);
 }
 
 .options-dropdown {
@@ -158,11 +166,15 @@ td:nth-child(3), td:nth-child(4) {
 	top: 50px;
 	right: 20px;
 	display: none;
-	background-color: #fff;
+	background-color:  rgb(255, 239, 229);
 	border: 1px solid #ddd;
 	border-radius: 5px;
 	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+	width:100px;
+	margin: 10px;
 }
+
+
 
 .options-dropdown button {
 	display: block;
@@ -172,12 +184,27 @@ td:nth-child(3), td:nth-child(4) {
 	background-color: transparent;
 	cursor: pointer;
 	text-align: left;
+	height: 50px;
 }
 
-#validationMessage{
-	text-align: center;
-
+.options-dropdown button:hover {
+	background-color: rgb(227, 68, 50);
+	color: rgb(255, 239, 229);
 }
+
+
+.imagemDoBotao {
+	text-align: left;
+}
+
+.user-info {
+	margin: 5px;
+	padding-left: 6px;
+}
+
+
+
+
 @import
 url('https://fonts.googleapis.com/css2?family=Anta&display=swap')
 </style>
@@ -186,37 +213,42 @@ url('https://fonts.googleapis.com/css2?family=Anta&display=swap')
 </head>
 <body>
 
-	<button class="options-button" id="optionsButton">Opções</button>
+
+	<button class="options-button" id="optionsButton"
+		title="Clique para ver as opções">
+
+		<div class="imagemDoBotao">
+			<span class="material-symbols-outlined"> account_circle </span>
+		</div>
+		<p class="user-info"><%=nome%></p>
+
+	</button>
+
 
 	<div class="options-dropdown" id="optionsDropdown">
-		<button onclick="logout()">
-			<span class="material-symbols-outlined"> logout </span>
+
+
+		<button onclick="logout()" title="Sair da sessão">
+			<div class="imagemLogout"></div><span class="material-symbols-outlined"> logout </span></div>
 		</button>
-		<button onclick="excluirConta()">Excluir Conta</button>
+		
 	</div>
+
+
 
 	<main>
 
 		<form class="add-form" id="addForm"
 			action="home?path=tarefa&actionTask=create" method="post"
-			onsubmit="return validateForm()">
+			onsubmit="return validarForm()">
 
 			<input type="text" name="descricao" placeholder="Nova Tarefa"
 				class="input-task" id="inputTask"></input> <input type="date"
 				name="data" class="input-date" id="inputDate"
 				min="<%=java.time.LocalDate.now()%>"></input>
 
-
 			<button type="submit">+</button>
-
-			
-
 		</form>
-		<div id="validationMessage" style="display: none; color: red;">Por favor, preencha todos os campos.</div>
-		
-		
-		<!-- Ícone ou texto de suporte -->
-		<span class="material-symbols-outlined"> support_agent </span>
 
 		<!-- Tabela para exibir as tarefas -->
 		<table id="task-table">
@@ -249,60 +281,39 @@ url('https://fonts.googleapis.com/css2?family=Anta&display=swap')
 		</table>
 	</main>
 
-	<script>
+	<script type="text/javascript">
+		function validarForm() {
+			var descricao = document.getElementById("inputTask").value;
+			var data = document.getElementById("inputDate").value;
+
+			if (descricao.trim() === "" || data === "") {
+				alert("Por favor, preencha todos os campos.");
+				return false;
+			}
+			return true;
+		}
+
 		// função do botão opções.
 		document.addEventListener("DOMContentLoaded", function() {
 			var optionsButton = document.getElementById("optionsButton");
 			var optionsDropdown = document.getElementById("optionsDropdown");
 
-			optionsButton.addEventListener("click", function(event) {
-				if (optionsDropdown.style.display === "block") {
-					optionsDropdown.style.display = "none";
-				} else {
-					optionsDropdown.style.display = "block";
-				}
-				event.stopPropagation();
+			optionsButton.addEventListener("click", function() {
+				optionsDropdown.style.display = "block";
 			});
 
-			document.addEventListener("click", function(event) {
-				if (event.target !== optionsButton
-						&& !optionsDropdown.contains(event.target)) {
-					optionsDropdown.style.display = "none";
-				}
+			optionsDropdown.addEventListener("mouseover", function() {
+				optionsDropdown.style.display = "block";
+			});
+
+			optionsButton.addEventListener("mouseouver", function() {
+				optionsDropdown.style.display = "none";
+			});
+
+			optionsDropdown.addEventListener("mouseout", function() {
+				optionsDropdown.style.display = "none";
 			});
 		});
-		// função de validação campos
-		
-		 function validateForm() {
-		        var descricao = document.getElementById("inputTask").value.trim();
-		        var data = document.getElementById("inputDate").value.trim();
-		        var validationMessage = document.getElementById("validationMessage");
-
-		        
-		        if (descricao === "" || data === "") {
-		           
-		            document.getElementById("validationMessage").style.display = "block";
-		            return false; // Impede o envio do formulário
-		        }
-
-		        // Se os campos não estiverem vazios, o formulário será enviado
-		        return true;
-		    }
-		 	function hideValidationMessage() {
-		        document.getElementById("validationMessage").style.display = "none";
-		    }
-		
-
-		
-		function logout() {
-			// Lógica de logout aqui...
-			console.log("Logout executado");
-		}
-
-		function excluirConta() {
-			// Lógica de exclusão de conta aqui...
-			console.log("Excluir conta executado");
-		}
 	</script>
 
 </body>
