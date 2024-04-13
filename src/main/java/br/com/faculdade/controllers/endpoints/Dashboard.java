@@ -1,7 +1,7 @@
 package br.com.faculdade.controllers.endpoints;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.com.faculdade.controllers.interfaces.Endpoint;
 import br.com.faculdade.infra.FabricaConexao;
+import br.com.faculdade.models.dto.TarefaDTO;
 import br.com.faculdade.services.TarefaService;
 
 public class Dashboard implements Endpoint{
@@ -27,7 +28,8 @@ public class Dashboard implements Endpoint{
 		
 		// buscas as tarefas com base no ID do usuário com sessão ativa
 		Integer userId = (Integer) request.getSession().getAttribute("userId");
-		ArrayList<br.com.faculdade.models.Tarefa> tarefas = service.buscarTarefas(userId);
+		
+		List<TarefaDTO> tarefas = service.buscarTarefas(userId);
 
 		request.setAttribute("listaTarefas", tarefas);
 		

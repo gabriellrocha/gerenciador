@@ -20,7 +20,6 @@ public class RootServlet extends HttpServlet {
 		String endereco = "";
 		
 		String path = request.getParameter("path");
-		System.out.println(path);
 		path = path.substring(0, 1).toUpperCase() + path.substring(1);
 		
 		try {

@@ -1,7 +1,8 @@
+<%@page import="br.com.faculdade.models.dto.TarefaDTO"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ page import= "java.util.ArrayList, br.com.faculdade.models.Tarefa, java.time.format.DateTimeFormatter"%>	
 <%
-	ArrayList<Tarefa> tarefas = (ArrayList<Tarefa>) request.getAttribute("listaTarefas");
+	ArrayList<TarefaDTO> tarefas = (ArrayList<TarefaDTO>) request.getAttribute("listaTarefas");
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	String nome = (String) request.getSession().getAttribute("nome");
 %>
@@ -246,14 +247,24 @@
 			<tbody>
 				<!-- Linhas da tabela -->				
 					<%
-						for(Tarefa tarefa : tarefas) {		
+						for(TarefaDTO tarefa : tarefas) {
+							String status1 = tarefa.getStatus().toString();
+							String status2 = "CONCLUIDO";
+							if(status1.equalsIgnoreCase("CONCLUIDO")){
+								status2 = "PENDENTE";		
+							}
 					%>
 					
 					<tr>
 						<td><%= tarefa.getDescricao() %></td>
 						<td><%= tarefa.getData().toLocalDate().format(formatter) %></td>
-						<td><%= tarefa.getStatus().toString() %></td>
-						<td></td>		
+						<td>
+							<select>
+								<option><%=status1%></option>
+								<option><%=status2%></option>
+							</select>
+						</td>					
+						<td><a href="home?path=tarefa&actionTask=read&id=<%= tarefa.getId() %>">Editar</a></td>		
 					</tr>
 					
 					<%

@@ -51,8 +51,6 @@ public class Cadastrar implements Endpoint{
 		// se true ocorreu tudo certo, redirecionar a pagina de login
 		// se false algo nao ocorreu bem, redirecionar a pagina de cadastro
 		
-		// ops!ocorreu um erro no cadastro. Tente novamente.
-		
 		return endereco;	
 	}
 }
