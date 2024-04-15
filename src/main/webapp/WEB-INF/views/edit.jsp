@@ -11,7 +11,7 @@
 	
 %>
 
-<html>
+<html lang="pt-BR">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -106,7 +106,7 @@
 <body>
 	
 
-	<form action="home?path=tarefa&actionTask=update" method="post">
+	<form action="home?path=tarefa&actionTask=update" method="post"  onsubmit="return validarFormulario();">
 
 		<table>
 			
@@ -150,7 +150,17 @@
 					</tr>
 				</tbody>		
 		</table>
-		
+	 <script>
+        function validarFormulario() {
+            var data = document.getElementsByName("data")[0].value;
+
+            if (data.trim() === "") {
+                alert("Por favor, preencha todos os campos.");
+                return false; 
+            }
+            return true; 
+        }
+    </script>	
 	
 </body>
 </html>
