@@ -1,166 +1,324 @@
+<%@page import="br.com.faculdade.models.util.DateUtil"%>
 <%@page import="java.time.format.DateTimeFormatter"%>
 <%@page import="br.com.faculdade.models.dto.TarefaDTO"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+
 <!DOCTYPE html>
-<meta charset="ISO-8859-1">
+
 
 <%
 	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	TarefaDTO dto = (TarefaDTO) request.getAttribute("dto");
-	
+	String nome = (String) request.getSession().getAttribute("nome");
 %>
 
 <html lang="pt-BR">
+	<meta charset="ISO-8859-1">
+	<link rel="sytlesheet" href="/style.css">
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jersey+10&family=Oswald:wght@200..700&display=swap" rel="stylesheet">
 <style>
- body {
-        display: flex;
-        justify-content: center; /* Centraliza horizontalmente */
-        align-items: center; /* Centraliza verticalmente */
-        height: 100vh; /* Altura total da viewport */
-        margin: 0; /* Remove margens padrão */
-        padding: 0; /* Remove preenchimentos padrão */
-    }
+		@import
+		url('https://fonts.googleapis.com/css2?family=Anta&family=Homemade+Apple&family=Rampart+One&display=swap')
+		 @charset "ISO-8859-1";
+		
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+			font-family: "Rampart One", sans-serif;
+		}
+		
+		body {
+			background-color: rgb(254, 253, 252);
+		}
+		
+		main {
+			background-color: rgb(255, 239, 229);
+			border-radius: 8px;
+			margin: 80px auto auto auto;
+			padding: 20px;
+			width: 90%;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		}
+		
+		.add-form {
+			display: flex;
+			margin-bottom: 50px;
+			gap: 15px;
+			width: 100%;
+		}
+		
+		input {
+			width: 100%;
+			flex: 1;
+			padding: 15px;
+			border: 1px solid #ddd;
+			border-radius: 5px;
+			outline: none;
+			font-size: 1rem;
+			font-weight: 600;
+		}
+		
+		button[type=submit] {
+			background-color: rgb(227, 68, 50);
+			height: 50px;
+			width: 50px;
+			border: none;
+			border-radius: 5px;
+			color: #fff;
+			font-size: 1.7rem;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-weight: 400;
+			cursor: pointer;
+		}
+		
+		table {
+			border-collapse: collapse;
+			width: 100%;
+		}
+		
+		td, th {
+			color: rgb(227, 68, 50);
+			padding: 10px 15px;
+			border: 1px solid #ddd;
+			text-align: center;
+		}
+		
+		td {
+			color: #333;
+			font-weight: 600;
+		}
+		
+		tr {
+			background-color: rgb(255, 255, 255);
+		}
+		
+		select {
+			width: 100%;
+			border: none;
+			padding: 10px;
+			border-radius: 8px;
+			font-weight: 600;
+			text-transform: capitalize;
+			background-color: #F2E7DC;
+			color: #40382B;
+		}
+		
+		select:hover {
+			background-color: #ddd;
+		}
+		
+		.btn-action {
+			border: none;
+			border-radius: 5px;
+			padding: 5px;
+			color: #fff;
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			cursor: pointer;
+		}
+		
+		.btn-action:nth-child(1) {
+			background-color: orange;
+			margin-right: 5px;
+		}
+		
+		.btn-action:nth-child(2) {
+			background-color: #F30317;
+		}
+		
+		td:nth-child(3), td:nth-child(4) {
+			width: 15%; /* Define a largura para status e ações */
+		}
+		
+		.larguraSelect {
+			padding: 5px;
+		}
+		
+		.options-button {
+			position: fixed;
+			top: 20px;
+			right: 30px;
+			background-color: rgb(255, 239, 229);
+			color: rgb(227, 68, 50);
+			padding: 10px 20px;
+			border: none;
+			border-radius: 10px;
+			cursor: pointer;
+			width: 120px;
+			display: inline-flex;
+		}
+		
+		.options-button:hover {
+			background-color: rgb(227, 68, 50);
+			color: rgb(255, 239, 229);
+		}
+		
+		.options-dropdown {
+			position: fixed;
+			top: 50px;
+			right: 20px;
+			display: none;
+			background-color: rgb(255, 239, 229);
+			border: 1px solid #ddd;
+			border-radius: 5px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		}
+		
+		.options-dropdown button {
+			display: block;
+			width: 100%;
+			padding: 10px 20px;
+			border: none;
+			background-color: transparent;
+			cursor: pointer;
+			text-align: left;
+			height: 50px;
+		}
+		
+		.options-dropdown button:hover {
+			background-color: rgb(227, 68, 50);
+			color: rgb(255, 239, 229);
+		}
+		
+		.imagemDoBotao {
+			text-align: left;
+		}
+		
+		.user-info {
+			margin: 5px;
+			padding-left: 6px;
+		}
+		
+		.editar {
+			background-color: rgb(227, 68, 50);
+			color: rgb(255, 239, 229);
+			display: inline-block;
+		    width: 30px; 
+		    height: 30px; 
+		    text-decoration: none; 
+		    border-radius: 5px; 
+		    border: none; 
+		    text-align: center; 
+		    line-height: 30px; 
+		}
+		
+		.editar:hover {
+		    background-color:rgb(255, 239, 229); ; /* Cor de fundo ao passar o mouse */
+		    color:rgb(227, 68, 50); ; /* Cor do texto ao passar o mouse */
+		}
+		
+		.editar .material-symbols-outlined {
+		    
+		   padding-top: 2px;
+		}	
+	</style>
 
-    form {
-        width: 50%; /* Largura do formulário */
-        height: 50%;
-        background-color: rgb(255, 239, 229); 
-        display: flex; /* Faz com que os elementos dentro do form se comportem como um flex container */
-    	justify-content: center; /* Centraliza os elementos horizontalmente */
-    	border-radius: 40px;
-    	box-shadow: 10px 10px 10px rgb(227, 68, 50) ;
-        
-    }
-
-    table {
-        width: 90%; /* Largura da tabela */
-        height: 50%;
-        background-color: white;
-        border-radius: 8px;
-        padding: 20px;
-        margin-top: 10%;
-        
-    }
-
-    th, td {
-        padding: 25px; /* Preenchimento interno */
-        text-align: center; /* Alinhamento do texto à esquerda */
-        color:rgb(227, 68, 50);
-        font-size: 30px;
-        font-family: "Oswald", sans-serif;
-        
-       
-    }
-
-    button[type="submit"] {
-        margin-top: 5px; /* Espaçamento superior para o botão */
-    }
-    
-    input[name="descricao"],
-	input[name="data"],
-	select[name="status"] {
-    width: 100%; /* Definir largura total */
-    padding: 20px; /* Espaçamento interno */    
-    margin: 5px  ; /* Espaçamento inferior */
-    border: 1px solid grey; /* Borda */
-    border-radius: 5px; /* Raio da borda */
-     font-weight: bold; /* Adiciona negrito ao conteúdo dos campos */
-}
-
-.botaoSalvar{
-	background-color: rgb(227, 68, 50);
-    width: 60px; 
-    height: 60px; 
-    border: none; 
-    border-radius: 10px; 
-    display: flex; 
-    align-items: center;
-    justify-content: center; 
-    cursor: pointer; 
-    color: #fff; 
-    font-weight: bold; 
-    text-transform: uppercase; /* Transforme o texto em maiúsculas *
-
-}
-
-.botaoSalvar:hover{
-	background-color: white;
-
-}
-
-
-
-
-
-    
-</style>
-<head>
-<meta charset="ISO-8859-1">
-<title>Editando a tarefa</title>
+	<title>Dashboard</title>
 </head>
 <body>
-	
 
-	<form action="home?path=tarefa&actionTask=update" method="post"  onsubmit="return validarFormulario();">
+	<button class="options-button" id="optionsButton"
+		title="Clique para ver as opções">
 
-		<table>
-			
-		
-			<thead>
-			
-				<tr>
-					
-					<th>TAREFA</th>
-					<th>DATA</th>
-					<th>STATUS</th>
-				</tr>
-			</thead>
-				<tbody>
-				
-				<%
-					String status1 = dto.getStatus().toString();
-								String status2 = "CONCLUIDO";
-								if(status1.equalsIgnoreCase("CONCLUIDO")){
-									status2 = "PENDENTE";		
-								}
-				%>	
-					
+		<div class="imagemDoBotao">
+			<span class="material-symbols-outlined"> account_circle </span>
+		</div>
+		<p class="user-info"><%=nome%></p>
+	</button>
+
+	<div class="options-dropdown" id="optionsDropdown">
+
+		<a href="home?path=logout">
+			<button>
+				<span class="material-symbols-outlined"> logout </span>
+			</button>
+		</a>
+
+	</div>
+
+	<main>
+		<form class="add-form" id="addForm" action="home?path=tarefa&actionTask=update&id=<%=dto.getId()%>" method="post" onsubmit= "return validarForm()">
+			<table id="task-table">
+				<thead>
 					<tr>
-						<td hidden=""><input name="id" value="<%= dto.getId() %>"></input></td>
-						<td><input name="descricao" value="<%= dto.getDescricao() %>"></td>
-						<td><input type="date" name="data" min="<%=java.time.LocalDate.now().toString() %>" value="<%= dto.getData().toLocalDate().format(formatter) %>"></td>
+						<th>DESCRIÇÃO</th>
+						<th>DATA</th>
+						<th>STATUS</th>
+						<th>OPÇÕES</th>
+					</tr>
+				</thead>
+				
+				<tbody>
+					<%
+						String stringDate = DateUtil.convertToAppropriateString(dto.getData());
+						String status1 = dto.getStatus().toString();
+						String status2 = "CONCLUIDO";
+						if(status1.equalsIgnoreCase("CONCLUIDO")){
+							status2 = "PENDENTE";		
+						}
+					%>	
+					<tr>
 						
+						<td hidden=""><input name="id" value="<%= dto.getId() %>"></input></td>
+						<td><input id = "inputTask" name="descricao" value="<%= dto.getDescricao() %>"></td>
+						<td><input id="inputDate" type="date" name="data" min="<%=java.time.LocalDate.now().toString() %>" value="<%=stringDate %>"></td>
 						<td>
 							<select name="status">
 								<option><%=status1%></option>
 								<option><%=status2%></option>
-								
 							</select>
-							
-							 <td> <!-- Célula vazia para separar o botão Salvar -->
-							 <button type="submit" class="botaoSalvar" title="Salvar edição" >salvar</button>
-                        
-                    </td>
+						</td>
+						<td >
+							<button type="submit"><span class="material-symbols-outlined">save</span></button>
 						</td>
 					</tr>
-				</tbody>		
-		</table>
-	 <script>
-        function validarFormulario() {
-            var data = document.getElementsByName("data")[0].value;
+				</tbody>
+			</table>
+		</form>
+	</main>
 
-            if (data.trim() === "") {
-                alert("Por favor, preencha todos os campos.");
-                return false; 
-            }
-            return true; 
-        }
-    </script>	
+	<script type="text/javascript">
 	
+		function validarForm() {
+			var descricao = document.getElementById("inputTask").value;
+			var data = document.getElementById("inputDate").value;
+
+			if (descricao.trim() === "" || data === "") {
+				alert("Por favor, preencha todos os campos.");
+				return false;
+			}
+			return true;
+		}
+
+		document.addEventListener("DOMContentLoaded", function() {
+			var optionsButton = document.getElementById("optionsButton");
+			var optionsDropdown = document.getElementById("optionsDropdown");
+
+			optionsButton.addEventListener("click", function() {
+				optionsDropdown.style.display = "block";
+			});
+
+			optionsDropdown.addEventListener("mouseover", function() {
+				optionsDropdown.style.display = "block";
+			});
+
+			optionsButton.addEventListener("mouseouver", function() {
+				optionsDropdown.style.display = "none";
+			});
+
+			optionsDropdown.addEventListener("mouseout", function() {
+				optionsDropdown.style.display = "none";
+			});
+		});
+	</script>
+
 </body>
 </html>
