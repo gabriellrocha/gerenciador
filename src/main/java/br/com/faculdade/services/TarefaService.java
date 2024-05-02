@@ -40,4 +40,11 @@ public class TarefaService {
 	public List<TarefaDTO> buscarTarefas (Integer id) {
 		return dao.selectAll(id);
 	}
+	
+	public void deletar(String id) {
+		
+		Integer idTask = Integer.parseInt(id);
+		
+		dao.delete(idTask);
+	}
 }

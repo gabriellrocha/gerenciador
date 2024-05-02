@@ -79,6 +79,21 @@ public class TarefaDAO {
 		}
 	}
 	
+	public void delete(Integer taskId) {
+		
+		String sql = "DELETE FROM tarefas WHERE id = ?";
+		try {
+			PreparedStatement statement = connection.prepareStatement(sql);
+			statement.setInt(1, taskId);	
+			
+			statement.execute();
+			
+		} catch(SQLException e) {
+			throw new RuntimeException(e);
+		}
+		
+	}
+	
 	public List<TarefaDTO> selectAll(Integer idUsuario) {
 		
 		ResultSet result;

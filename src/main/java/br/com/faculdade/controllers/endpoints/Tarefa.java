@@ -48,9 +48,14 @@ public class Tarefa implements Endpoint {
 			request.setAttribute("dto", dto);
 			
 			return "forward:home?path=edit";
-					
-		}
 		
+			
+		} else if (actionTask.equals("delete")) { // home?path=tarefa&actionTask=delete&id=
+			
+			String id = request.getParameter("id");			
+			service.deletar(id);
+		}
+			
 		return "redirect:home?path=dashboard";
 		
 	}

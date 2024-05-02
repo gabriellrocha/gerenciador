@@ -279,6 +279,10 @@ String nome = (String) request.getSession().getAttribute("nome");
 						<a href="home?path=tarefa&actionTask=read&id=<%=tarefa.getId()%>" class="editar" title="Editar">
 							 <span class="material-symbols-outlined">edit</span>
 						</a>
+						
+						<a href="home?path=tarefa&actionTask=delete&id=<%=tarefa.getId()%>" class="editar" title="Deletar">
+							<span class="material-symbols-outlined">delete</span>
+						</a>
 					</td>
 				</tr>
 
