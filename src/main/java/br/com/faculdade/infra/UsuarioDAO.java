@@ -62,6 +62,22 @@ public class UsuarioDAO {
 		return null;	
 	}
 	
+	public void deletar(Integer id) {
+		
+		PreparedStatement statement;
+		String sql = "DELETE FROM usuarios WHERE id = ?";
+		
+		try {
+			statement = connection.prepareStatement(sql);
+			statement.setInt(1, id);
+			statement.execute();
+			
+		} catch (SQLException e) {
+			throw new RuntimeException();
+		}
+		
+	}
+	
 	public AuthenticationResult autenticarUsuario(String username, String password) {
 		
 		PreparedStatement statement;

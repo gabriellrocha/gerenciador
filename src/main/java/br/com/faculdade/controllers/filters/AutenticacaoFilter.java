@@ -29,6 +29,7 @@ public class AutenticacaoFilter extends HttpFilter implements Filter {
 		String path = request.getParameter("path");
 		
 		boolean usuarioNaoEstaLogado = (session.getAttribute("userId") == null);
+		
 		boolean endpointProtegido = !(path.equals("signIn") || path.equals("login") || path.equals("cadastrar") || path.equals("signUp") || path.equals("edit"));
 		
 		// Já tiver uma sessão e tentar acessar o formulário de login encaminha a página principal

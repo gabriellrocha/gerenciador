@@ -22,6 +22,10 @@ public class UsuarioService {
 		return dao.criar(dados);
 	}
 	
+	public void deletarUsuario(Integer id) {	
+		dao.deletar(id);
+	}
+	
 	public AuthenticationResult verificarCredenciais(String username, String password) {
 		
 		// tirar a logica do DAO e inserir aqui 
