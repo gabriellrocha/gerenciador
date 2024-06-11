@@ -234,9 +234,14 @@ String nome = (String) request.getSession().getAttribute("nome");
 
 	<div class="options-dropdown" id="optionsDropdown">
 
-		<a href="home?path=logout">
+		<a href="home?path=logout" title="Logout">
 			<button>
 				<span class="material-symbols-outlined"> logout </span>
+			</button>
+		</a>
+		<a href="home?path=deletarConta" title="Deletar Conta" onclick="return confirmarExclusao();">
+			<button>
+				<span class="material-symbols-outlined"> delete_forever </span>
 			</button>
 		</a>
 
@@ -306,6 +311,16 @@ String nome = (String) request.getSession().getAttribute("nome");
 			}
 			return true;
 		}
+		
+		function confirmarExclusao() {
+            var confirmacao = confirm("Tem certeza de que deseja excluir sua conta permanentemente? Esta ação não pode ser desfeita!");
+           
+            if (confirmacao) {
+                window.location.href = "home?path=deletarConta";
+            }
+            
+            return false;
+        }
 
 		document.addEventListener("DOMContentLoaded", function() {
 			var optionsButton = document.getElementById("optionsButton");

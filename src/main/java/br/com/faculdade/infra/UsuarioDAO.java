@@ -64,19 +64,35 @@ public class UsuarioDAO {
 	
 	public void deletar(Integer id) {
 		
-		PreparedStatement statement;
-		String sql = "DELETE FROM usuarios WHERE id = ?";
+		String deleteTarefaSQL = "DELETE FROM tarefas WHERE usuario_id = ?";
+		
+		String deleteUsuarioSQL= "DELETE FROM usuarios WHERE id = ?";
+		
 		
 		try {
-			statement = connection.prepareStatement(sql);
-			statement.setInt(1, id);
-			statement.execute();
+			// necessário fazer transação, deletar usuarios e respectivamente as tarefas relacionadas
+			connection.setAutoCommit(false);
+			
+			PreparedStatement deleteTarefaPstm = connection.prepareStatement(deleteTarefaSQL);
+			deleteTarefaPstm.setInt(1, id);
+			deleteTarefaPstm.executeUpdate();
+			
+			PreparedStatement deleteUsuarioPstm  = connection.prepareStatement(deleteUsuarioSQL);
+			deleteUsuarioPstm.setInt(1, id);
+			deleteUsuarioPstm.executeUpdate();
+			
+			connection.commit();
 			
 		} catch (SQLException e) {
-			throw new RuntimeException();
+			
+                try {
+                    connection.rollback();
+                    
+                } catch (SQLException ex) {
+                    ex.printStackTrace();
+                }
+			}
 		}
-		
-	}
 	
 	public AuthenticationResult autenticarUsuario(String username, String password) {
 		

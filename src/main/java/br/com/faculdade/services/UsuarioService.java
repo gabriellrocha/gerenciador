@@ -23,6 +23,7 @@ public class UsuarioService {
 	}
 	
 	public void deletarUsuario(Integer id) {	
+		
 		dao.deletar(id);
 	}
 	
